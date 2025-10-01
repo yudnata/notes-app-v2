@@ -4,9 +4,9 @@ import SearchCatatan from './SearchCatatan';
 
 const Navbar = ({ searchKeyword, onKeywordChange }) => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex bg-orange-300 justify-between px-20 py-5 text-white shadow-md items-center">
-      <h1 className="font-bold text-2xl">
-        <Link to="/">NotesApp</Link>
+    <div className="fixed top-0 left-0 right-0 z-50 flex bg-white justify-between px-20 py-5 text-white shadow-md items-center">
+      <h1 className="font-bold text-2xl text-orange-400">
+        <Link to="/">NotesApp v2</Link>
       </h1>
       <div className="flex-grow mx-10">
         <SearchCatatan
@@ -14,11 +14,11 @@ const Navbar = ({ searchKeyword, onKeywordChange }) => {
           onKeywordChange={onKeywordChange}
         />
       </div>
-      <ol className="flex gap-5 font-semibold text-md">
-        <li className="hover:text-white transition ease-in-out duration-300 hover:scale-110 p-1 hover:cursor-pointer">
+      <ol className="flex gap-2 font-semibold text-md">
+        <li className="hover:text-white transition ease-in-out duration-300 hover:scale-103 p-2 hover:cursor-pointer bg-green-500 rounded-xl">
           <Link to="/">Catatan Saya</Link>
         </li>
-        <li className="hover:text-white transition ease-in-out duration-300 hover:scale-110 p-1 hover:cursor-pointer">
+        <li className="hover:text-white transition ease-in-out duration-300 hover:scale-103 p-2 hover:cursor-pointer bg-orange-500 rounded-xl">
           <Link to="/arsip">Arsip Saya</Link>
         </li>
       </ol>
