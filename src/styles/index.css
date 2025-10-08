@@ -17,3 +17,8 @@
   pointer-events: none;
   display: block;
 }
+
+.dark {
+  background-color: #1f2937;
+  color: #f9fafb;
+}

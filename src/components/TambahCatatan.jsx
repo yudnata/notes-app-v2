@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { LocaleContext } from '../contexts/LocaleContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const TambahCatatan = ({ addNote }) => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const { locale } = useContext(LocaleContext);
+  const { theme } = useContext(ThemeContext);
   const titleCharLimit = 50;
 
   const onTitleChangeEventHandler = (event) => {
@@ -17,47 +21,62 @@ const TambahCatatan = ({ addNote }) => {
 
   const onSubmitEventHandler = (event) => {
     event.preventDefault();
+    if (!title.trim() || !body.trim()) return;
     addNote({ title, body });
     setTitle('');
     setBody('');
-    // Mengosongkan div setelah submit
     const bodyInput = event.target.querySelector('[contentEditable]');
-    if (bodyInput) {
-      bodyInput.innerHTML = '';
-    }
+    if (bodyInput) bodyInput.innerHTML = '';
   };
 
+  // Warna dinamis berdasarkan tema
+  const bgColor = theme === 'light' ? 'bg-white' : 'bg-gray-900';
+  const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
+  const borderColor = theme === 'light' ? 'border-gray-300' : 'border-gray-700';
+  const inputBg = theme === 'light' ? 'bg-gray-50' : 'bg-gray-700';
+
   return (
-    <div className="flex flex-col mx-10 mt-5 bg-white shadow-md rounded-xl px-10 py-5">
-      <h2 className="font-bold text-2xl mb-4">Buat Catatan</h2>
+    <div
+      className={`flex flex-col px-10 py-6 mx-10 mt-8 shadow-md rounded-2xl transition-all duration-300 ${bgColor}`}
+    >
+      <h2 className={`mb-4 text-2xl font-extrabold ${textColor}`}>
+        {locale === 'id' ? 'Buat Catatan' : 'Create Note'}
+      </h2>
+
       <form
-        className="flex flex-col gap-3 w-full"
         onSubmit={onSubmitEventHandler}
+        className="flex flex-col w-full gap-4"
       >
         <div className="flex justify-end">
-          <p className="text-sm text-gray-500">
-            Sisa karakter: {titleCharLimit - title.length}
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {locale === 'id' ? 'Sisa karakter' : 'Characters remaining'}:{' '}
+            <span className="font-semibold text-orange-500">{titleCharLimit - title.length}</span>
           </p>
         </div>
+
         <input
-          className="w-full border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-orange-400"
           type="text"
-          placeholder="Ini Judul Catatan"
           value={title}
           onChange={onTitleChangeEventHandler}
+          placeholder={locale === 'id' ? 'Ini Judul Catatan' : 'This is the Note Title'}
           required
+          className={`w-full px-4 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all`}
         />
+
         <div
-          className="w-full border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:border-orange-400 resize-none min-h-[120px]" // Menambah tinggi minimum
           contentEditable
-          data-placeholder="Tuliskan Catatanmu Disini..."
           onInput={onBodyChangeEventHandler}
+          data-placeholder={
+            locale === 'id' ? 'Tuliskan Catatanmu di sini...' : 'Write your note here...'
+          }
+          className={`w-full min-h-[150px] px-4 py-3 border ${borderColor} ${inputBg} ${textColor} rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 transition-all`}
         ></div>
+
         <button
           type="submit"
-          className="bg-orange-400 text-white rounded-md px-4 py-2 hover:bg-orange-500 transition-colors w-full font-bold"
+          className="w-full px-4 py-2 font-semibold text-white transition-all duration-300 bg-orange-500 rounded-lg hover:bg-orange-600 hover:scale-[1.02] active:scale-[0.98]"
         >
-          Buat Catatan
+          {locale === 'id' ? 'Simpan Catatan' : 'Save Note'}
         </button>
       </form>
     </div>
