@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Moon, LogOut } from 'lucide-react';
+import { Sun, Moon, LogOut, PlusCircle } from 'lucide-react';
 import SearchCatatan from './SearchCatatan';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { LocaleContext } from '../contexts/LocaleContext';
@@ -24,14 +24,16 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-5 sm:px-20 ${baseBg} ${shadowStyle}`}
+      className={`fixed top-0 left-0 right-0 z-50 flex flex-wrap items-center justify-between px-4 py-4 sm:px-10 ${baseBg} ${shadowStyle}`}
     >
       <h1 className="text-xl font-bold tracking-tight text-orange-500 sm:text-2xl">
-        <Link to="/">NotesApp <span className='text-red-500'>v3</span></Link>
+        <Link to="/">
+          NotesApp <span className="text-red-500">v3</span>
+        </Link>
       </h1>
-
+      
       {authedUser && (
-        <div className="flex-grow mx-4 sm:mx-10">
+        <div className="flex-grow w-full mt-3 sm:mt-0 sm:w-auto sm:mx-10">
           <SearchCatatan
             keyword={searchKeyword}
             onKeywordChange={onKeywordChange}
@@ -39,7 +41,7 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
         </div>
       )}
 
-      <div className="flex items-center gap-2 sm:gap-4">
+      <div className="flex flex-wrap items-center gap-2 mt-3 sm:gap-4 sm:mt-0">
         {authedUser && (
           <ol className="flex gap-2 text-sm font-semibold sm:text-base">
             <li
@@ -60,9 +62,23 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
             >
               <Link to="/arsip">{locale === 'id' ? 'Arsip Saya' : 'My Archives'}</Link>
             </li>
+            <li
+              className={`${linkBase} ${
+                theme === 'light'
+                  ? 'bg-blue-500 text-white hover:bg-blue-600'
+                  : 'bg-blue-600 text-white hover:bg-blue-500'
+              } flex items-center gap-1`}
+            >
+              <Link
+                to="/notes/new"
+                className="flex items-center gap-1"
+              >
+                <PlusCircle size={18} />
+                {locale === 'id' ? 'Tambah' : 'Add Note'}
+              </Link>
+            </li>
           </ol>
         )}
-
         <button
           onClick={toggleTheme}
           className={`${buttonBase} ${btnTheme}`}
@@ -78,13 +94,19 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
         </button>
 
         {authedUser && (
-          <button
-            onClick={onLogout}
-            className="p-2 text-white transition-all duration-300 bg-red-500 rounded-full hover:bg-red-600"
-            title={locale === 'id' ? 'Keluar' : 'Logout'}
-          >
-            <LogOut size={20} />
-          </button>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-5 py-1 rounded-full dark:border-gray-700">
+              <span className="hidden font-bold text-md sm:block">Hai <span className='text-orange-500'>{authedUser.name}</span></span>
+            </div>
+
+            <button
+              onClick={onLogout}
+              className="p-2 text-white transition-all duration-300 bg-red-500 rounded-full hover:bg-red-600"
+              title={locale === 'id' ? 'Keluar' : 'Logout'}
+            >
+              <LogOut size={20} />
+            </button>
+          </div>
         )}
       </div>
     </nav>
