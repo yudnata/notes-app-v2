@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Sun, Moon, LogOut, PlusCircle } from 'lucide-react';
+import { Sun, Moon, LogOut } from 'lucide-react';
 import SearchCatatan from './SearchCatatan';
 import { ThemeContext } from '../contexts/ThemeContext';
 import { LocaleContext } from '../contexts/LocaleContext';
@@ -8,6 +8,14 @@ import { LocaleContext } from '../contexts/LocaleContext';
 const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { locale, toggleLocale } = useContext(LocaleContext);
+
+  const capitalizeWords = (str) => {
+    if (!str) return '';
+    return str
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   const baseBg = theme === 'light' ? 'bg-white text-gray-900' : 'bg-gray-900 text-gray-100';
   const shadowStyle = theme === 'light' ? 'shadow-md' : 'shadow-lg shadow-black/30';
@@ -31,7 +39,7 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
           NotesApp <span className="text-red-500">v3</span>
         </Link>
       </h1>
-      
+
       {authedUser && (
         <div className="flex-grow w-full mt-3 sm:mt-0 sm:w-auto sm:mx-10">
           <SearchCatatan
@@ -62,23 +70,9 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
             >
               <Link to="/arsip">{locale === 'id' ? 'Arsip Saya' : 'My Archives'}</Link>
             </li>
-            <li
-              className={`${linkBase} ${
-                theme === 'light'
-                  ? 'bg-blue-500 text-white hover:bg-blue-600'
-                  : 'bg-blue-600 text-white hover:bg-blue-500'
-              } flex items-center gap-1`}
-            >
-              <Link
-                to="/notes/new"
-                className="flex items-center gap-1"
-              >
-                <PlusCircle size={18} />
-                {locale === 'id' ? 'Tambah' : 'Add Note'}
-              </Link>
-            </li>
           </ol>
         )}
+
         <button
           onClick={toggleTheme}
           className={`${buttonBase} ${btnTheme}`}
@@ -96,7 +90,9 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
         {authedUser && (
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-5 py-1 rounded-full dark:border-gray-700">
-              <span className="hidden font-bold text-md sm:block">Hai <span className='text-orange-500'>{authedUser.name}</span></span>
+              <span className="hidden font-bold text-md sm:block">
+                Hai <span className="text-orange-500">{capitalizeWords(authedUser.name)}</span>
+              </span>
             </div>
 
             <button
