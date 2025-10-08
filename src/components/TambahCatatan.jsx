@@ -29,7 +29,6 @@ const TambahCatatan = ({ addNote }) => {
     if (bodyInput) bodyInput.innerHTML = '';
   };
 
-  // Warna dinamis berdasarkan tema
   const bgColor = theme === 'light' ? 'bg-white' : 'bg-gray-900';
   const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
   const borderColor = theme === 'light' ? 'border-gray-300' : 'border-gray-700';

@@ -12,6 +12,7 @@ export const LocaleProvider = ({ children }) => {
     setLocale(newLocale);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const contextValue = useMemo(() => ({ locale, toggleLocale }), [locale]);
 
   return <LocaleContext.Provider value={contextValue}>{children}</LocaleContext.Provider>;

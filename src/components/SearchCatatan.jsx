@@ -5,7 +5,7 @@ import { ThemeContext } from '../contexts/ThemeContext';
 
 const SearchCatatan = ({ keyword, onKeywordChange }) => {
   const { locale } = useContext(LocaleContext);
-  const { theme } = useContext(ThemeContext); // baca theme dari context
+  const { theme } = useContext(ThemeContext);
 
   const containerBase =
     'flex items-center gap-3 px-4 py-2 rounded-xl border transition-all duration-300 focus-within:shadow-md focus-within:ring-2 focus-within:ring-orange-500';

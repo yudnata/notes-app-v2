@@ -9,7 +9,6 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { locale, toggleLocale } = useContext(LocaleContext);
 
-  // Warna dasar berdasarkan mode
   const baseBg = theme === 'light' ? 'bg-white text-gray-900' : 'bg-gray-900 text-gray-100';
   const shadowStyle = theme === 'light' ? 'shadow-md' : 'shadow-lg shadow-black/30';
 

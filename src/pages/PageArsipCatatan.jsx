@@ -6,8 +6,7 @@ import { ThemeContext } from '../contexts/ThemeContext';
 const PageArsipCatatan = ({ notes, onDelete, onUnarchive }) => {
   const { locale } = useContext(LocaleContext);
   const { theme } = useContext(ThemeContext);
-
-  // Warna dinamis berdasarkan tema
+  
   const bgColor = theme === 'light' ? 'bg-white' : 'bg-gray-900';
   const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
   const borderColor = theme === 'light' ? 'border-gray-300' : 'border-gray-700';

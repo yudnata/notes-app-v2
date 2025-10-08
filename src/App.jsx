@@ -25,7 +25,7 @@ const App = () => {
   const [authedUser, setAuthedUser] = useState(null);
   const [notes, setNotes] = useState([]);
   const [archivedNotes, setArchivedNotes] = useState([]);
-  // --- PERBAIKAN: Mengganti 'initializing' menjadi 'loading' untuk penggunaan yang lebih umum ---
+  
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -46,12 +46,12 @@ const App = () => {
   useEffect(() => {
     if (authedUser) {
       const fetchNotes = async () => {
-        setLoading(true); // --- Tambahkan loading saat mengambil catatan ---
+        setLoading(true);
         const { data: activeData } = await getActiveNotes();
         const { data: archivedData } = await getArchivedNotes();
         setNotes(activeData || []);
         setArchivedNotes(archivedData || []);
-        setLoading(false); // --- Hentikan loading setelah selesai ---
+        setLoading(false);
       };
       fetchNotes();
     }
@@ -122,7 +122,6 @@ const App = () => {
     note.title.toLowerCase().includes(keyword.toLowerCase())
   );
 
-  // --- PERBAIKAN: Gunakan satu state 'loading' untuk semua kondisi ---
   if (loading) {
     return <Loading />;
   }

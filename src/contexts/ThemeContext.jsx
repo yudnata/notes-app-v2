@@ -4,10 +4,8 @@ import React, { createContext, useState, useMemo, useEffect } from 'react';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Ambil tema dari localStorage atau default ke 'light'
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
-  // Terapkan kelas 'dark' pada elemen <html> saat tema berubah
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -22,12 +20,12 @@ export const ThemeProvider = ({ children }) => {
     setTheme(newTheme);
   };
 
-  // Gunakan useMemo untuk efisiensi
   const contextValue = useMemo(() => {
     return {
       theme,
       toggleTheme,
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme]);
 
   return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>;
