@@ -15,7 +15,7 @@ const PageCatatan = ({ notes, onDelete, onArchive }) => {
     <div
       className={`mx-6 md:mx-10 mt-10 mb-8 pb-8 shadow-md rounded-2xl transition-all duration-300 ${bgColor}`}
     >
-      <h2 className={`pt-6 pb-4 pl-8 text-2xl font-extrabold tracking-wide ${textColor}`}>
+      <h2 className={`pt-6 pb-4 pl-10 text-2xl font-extrabold tracking-wide ${textColor}`}>
         {locale === 'id' ? 'Catatan Aktif' : 'Active Notes'}
       </h2>
 

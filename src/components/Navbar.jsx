@@ -27,7 +27,7 @@ const Navbar = ({ searchKeyword, onKeywordChange, authedUser, onLogout }) => {
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-5 sm:px-20 ${baseBg} ${shadowStyle}`}
     >
       <h1 className="text-xl font-bold tracking-tight text-orange-500 sm:text-2xl">
-        <Link to="/">NotesApp v2</Link>
+        <Link to="/">NotesApp <span className='text-red-500'>v3</span></Link>
       </h1>
 
       {authedUser && (
